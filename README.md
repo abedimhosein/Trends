@@ -2,19 +2,22 @@
 
 Minimal Social-Media for hashtags, likes and dislikes
 
-# Stack Technology
+### Stack Technology
 
-Main Programming Language: Python v3.10.X, 64-bit
-<br>Web Framework: Django v3.2.X
-<br>Relational Database: PostgreSQL v14.X
+<ul style="font-size: 11px">
+<li>Main Programming Language: Python v3.10.X, 64-bit</li>
+<li>Web Framework: Django v3.2.X</li>
+<li>REST Framework: Django Rest Framework v3.14.X</li>
+<li>Relational Database: PostgreSQL v14.X</li>
+</ul>
 
-# Dependency Installation
+### Dependency Installation
 
 ```commandline
 pip install -r requirements.txt
 ```
 
-# Migrations
+### Migrations
 
 ```commandline
 python manage.py makemigrations
