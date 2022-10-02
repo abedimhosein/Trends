@@ -1,6 +1,5 @@
-from django.db import models
 from django.conf import settings
-from django.core.exceptions import ValidationError
+from django.db import models
 
 User = settings.AUTH_USER_MODEL
 
@@ -9,6 +8,7 @@ class Hashtag(models.Model):
     slug = models.SlugField(unique=True)
     title = models.CharField(max_length=255)
     description = models.TextField(null=True, blank=True)
+    is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     creator = models.ForeignKey(User, on_delete=models.PROTECT, related_name='hashtags')
 
@@ -21,11 +21,6 @@ class Like(models.Model):
     hashtag = models.ForeignKey(Hashtag, on_delete=models.PROTECT, related_name='likes')
     created_at = models.DateTimeField(auto_now_add=True)
 
-    def clean(self):
-        if Dislike.objects.filter(user=self.user, hashtag=self.hashtag).exists():
-            raise ValidationError("You're not allowed to like and dislike for a hashtag at the same time.")
-        super(Like, self).clean()
-
     class Meta:
         unique_together = [('user', 'hashtag')]
         ordering = ['created_at']
@@ -36,10 +31,16 @@ class Dislike(models.Model):
     hashtag = models.ForeignKey(Hashtag, on_delete=models.PROTECT, related_name='dislikes')
     created_at = models.DateTimeField(auto_now_add=True)
 
-    def clean(self):
-        if Like.objects.filter(user=self.user, hashtag=self.hashtag).exists():
-            raise ValidationError("You're not allowed to like and dislike for a hashtag at the same time.")
-        super(Dislike, self).clean()
+    class Meta:
+        unique_together = [('user', 'hashtag')]
+        ordering = ['created_at']
+
+
+class Report(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reports')
+    hashtag = models.ForeignKey(Hashtag, on_delete=models.PROTECT, related_name='reports')
+    description = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         unique_together = [('user', 'hashtag')]
