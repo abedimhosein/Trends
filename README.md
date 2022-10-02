@@ -1,6 +1,7 @@
 # Hashtags
 
 Minimal Social-Media for hashtags, likes and dislikes
+<br>__NOTICE__: This is under construction :)
 
 ### Stack Technology
 
