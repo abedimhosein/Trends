@@ -1,0 +1,17 @@
+# Django Related Files
+*/migrations/*
+!*/migrations/__init__.py
+
+# Project Releted Files
+configs/settings.py
+db.sqlite3
+
+# IDE Related Files
+.idea/
+
+# Python Related Files
+*.pyc
+*/__pycache__/
+
+# Environment Related Files
+venv/
