@@ -5,7 +5,7 @@ User = settings.AUTH_USER_MODEL
 
 
 class Hashtag(models.Model):
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, blank=True)
     title = models.CharField(max_length=255)
     description = models.TextField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
