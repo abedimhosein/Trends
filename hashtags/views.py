@@ -1,10 +1,8 @@
 from django.shortcuts import get_object_or_404
-from rest_framework.generics import (
-    ListCreateAPIView,
-    RetrieveUpdateDestroyAPIView
-)
-from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.response import Response
+
 from hashtags.models import (
     Hashtag,
     Like,
@@ -19,7 +17,7 @@ from hashtags.serializers import (
 )
 
 
-class HashtagList(ListCreateAPIView):
+class HashtagListCreate(ListCreateAPIView):
     queryset = Hashtag.objects.filter(is_active=True)
     serializer_class = HashtagSerializer
 
