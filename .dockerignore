@@ -1,0 +1,18 @@
+# Python related files and directories
+*.pyc
+*.pyo
+__pycache__
+
+# IDE related files and directories
+*.code-workspace
+
+# Git and Docker related files and directories
+.git/
+.gitignore
+Dockerfile
+.dockerignore
+
+# Project related files and directories
+db.sqlite3
+venv/
+static_deploy/
