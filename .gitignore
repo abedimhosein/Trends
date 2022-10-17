@@ -8,6 +8,7 @@ db.sqlite3
 
 # IDE Related Files
 .idea/
+Hashtags.code-workspace
 
 # Python Related Files
 *.pyc
