@@ -3,7 +3,7 @@
 !*/migrations/__init__.py
 
 # Project Releted Files
-configs/settings.py
+core/settings.py
 db.sqlite3
 
 # IDE Related Files
