@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+
+  db:
+    image: "postgres:alpine3.16"
+    container_name: hashtag-db
+    volumes: 
+      - postgres_db:/var/lib/postgres/data
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=hashtags
+  
+  backend:
+    build: .
+    container_name: hashtag-backend
+    command: > 
+      sh -c "python manage.py makemigrations 
+      && python manage.py migrate 
+      && python manage.py runserver 0.0.0.0:8001" 
+    volumes:
+      - .:/app
+    ports:
+      - "8001:8001"
+    environment:
+      - POSTGRES_NAME=hashtags
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_HOST=db
+    depends_on:
+      - db
+  
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: hashtag-pgadmin
+    depends_on:
+      - db
+    ports:
+      - "5050:80"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=example@example.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+      
+volumes:
+  postgres_db:

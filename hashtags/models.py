@@ -37,7 +37,7 @@ class Dislike(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        unique_together = [('user', 'hashtag')]
+        unique_together = [('user', 'hashtag'), ]
         ordering = ['created_at']
 
 
@@ -48,5 +48,5 @@ class Report(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        unique_together = [('user', 'hashtag')]
+        unique_together = [('user', 'hashtag'), ]
         ordering = ['created_at']
