@@ -10,6 +10,7 @@ Minimal Social-Media for hashtags, likes and dislikes
 <li>Web Framework: Django v3.2.X</li>
 <li>REST Framework: Django Rest Framework v3.14.X</li>
 <li>Relational Database: PostgreSQL v14.X</li>
+<li>Nginx</li>
 </ul>
 
 ### Dependency Installation

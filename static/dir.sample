@@ -1,0 +1,4 @@
+Directory for storing and serving staticfiles
+like *.js, *.css and others
+with inner django web-server on development environment with
+DEBUG=on mode.
