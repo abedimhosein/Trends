@@ -6,11 +6,11 @@ User = settings.AUTH_USER_MODEL
 
 class Hashtag(models.Model):
     class HashtagState(models.TextChoices):
-        DRAFT = 'DRAFT', 'Draft'
-        PUBLISHED = 'PUBLISHED', 'Published'
+        DRAFT = 'D', 'Draft'
+        PUBLISHED = 'P', 'Published'
 
     slug = models.SlugField(unique=True, blank=True)
-    state = models.CharField(max_length=10, choices=HashtagState.choices, default=HashtagState.DRAFT)
+    state = models.CharField(max_length=1, choices=HashtagState.choices, default=HashtagState.DRAFT)
     title = models.CharField(max_length=255)
     description = models.TextField(null=True, blank=True)
     is_active = models.BooleanField(default=True)

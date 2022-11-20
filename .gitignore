@@ -4,10 +4,12 @@
 
 # Project Releted Files
 core/settings.py
-db/
+db/db.sqlite3
+staticfiles/
 
 # IDE Related Files
 .idea/
+.vscode/
 Hashtags.code-workspace
 
 # Python Related Files
