@@ -42,8 +42,15 @@ class Dislike(models.Model):
 
 
 class Report(models.Model):
+    class ReportType(models.TextChoices):
+        SPAM = 'S', 'Spam'
+        INSULT = 'I', 'Insult'
+        VIOLENCE = 'V', 'Violence'
+        OTHER = 'O', 'Other'
+
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reports')
     hashtag = models.ForeignKey(Hashtag, on_delete=models.PROTECT, related_name='reports')
+    type = models.CharField(max_length=1, choices=ReportType.choices, default=ReportType.OTHER)
     description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 

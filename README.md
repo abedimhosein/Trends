@@ -25,9 +25,3 @@ pip install -r requirements.txt
 python manage.py makemigrations
 python manage.py migrate
 ```
-
-### Run
-
-```commandline
-python manage.py runserver <free-port-like:8056>
-```
