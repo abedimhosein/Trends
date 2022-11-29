@@ -48,6 +48,11 @@ class Report(models.Model):
         VIOLENCE = 'V', 'Violence'
         OTHER = 'O', 'Other'
 
+        @staticmethod
+        def to_reportType_obj(report_type: str):
+            report_type = report_type.strip().upper()
+            return Report.ReportType.__members__.get(report_type)
+
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reports')
     hashtag = models.ForeignKey(Hashtag, on_delete=models.PROTECT, related_name='reports')
     type = models.CharField(max_length=1, choices=ReportType.choices, default=ReportType.OTHER)

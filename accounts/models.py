@@ -5,12 +5,7 @@ from django.db import models
 
 class UserManager(BaseUserManager):
 
-    def create_user(self,
-                    username: str,
-                    password: str,
-                    usertype: str,
-                    email: str,
-                    is_active: bool = True):
+    def create_user(self, username: str, password: str, usertype: str, email: str, is_active: bool = True):
         if not username:
             raise ValidationError("Users must have a username")
 
@@ -43,15 +38,12 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-
     class Usertype(models.TextChoices):
         NORMAL = 'N', 'Normal'
         HEAD = 'H', 'Head'
         ADMIN = 'A', 'Admin'
 
-    usertype = models.CharField(max_length=1,
-                                choices=Usertype.choices,
-                                default=Usertype.NORMAL)
+    usertype = models.CharField(max_length=1, choices=Usertype.choices, default=Usertype.NORMAL)
     username = models.CharField(max_length=255, unique=True)
     fullname = models.CharField(max_length=255)
     email = models.EmailField(unique=True)

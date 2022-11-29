@@ -21,6 +21,9 @@ class HashtagListCreate(ListCreateAPIView):
     queryset = Hashtag.objects.filter(is_active=True)
     serializer_class = HashtagSerializer
 
+    def perform_create(self, serializer):
+        serializer.save(creator=self.request.user)
+
 
 class HashtagDetail(RetrieveUpdateDestroyAPIView):
     queryset = Hashtag.objects.all()
@@ -38,12 +41,21 @@ class LikeList(ListCreateAPIView):
     queryset = Like.objects.all()
     serializer_class = LikeSerializer
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
 
 class DislikeList(ListCreateAPIView):
     queryset = Dislike.objects.all()
     serializer_class = DislikeSerializer
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
 
 class ReportList(ListCreateAPIView):
     queryset = Report.objects.all()
     serializer_class = ReportSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
