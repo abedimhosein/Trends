@@ -6,4 +6,4 @@ class HashtagsConfig(AppConfig):
     name = 'hashtags'
 
     def ready(self):
-        import hashtags.signals
+        pass

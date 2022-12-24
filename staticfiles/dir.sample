@@ -1,5 +1,0 @@
-Directory for storing and serving staticfiles
-like *.js, *.css and others
-with web-server applications like
-Apache or NginX on deployment environment with
-DEBUG=off mode.

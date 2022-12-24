@@ -1,19 +1,18 @@
-# Django Related Files
-*/migrations/*
-!*/migrations/__init__.py
+# ------- Django Related Files
+src/*/migrations/*
+!src/*/migrations/__init__.py
 
-# Project Releted Files
-db/db.sqlite3
-staticfiles/
+# ------- Project Releted Files
+src/db/db.sqlite3
+src/staticfiles/
+.venv/
 
-# IDE Related Files
+# ------- Python Related Files
+src/*.pyc
+src/*/__pycache__/
+
+# ------- IDE Related Files
 .idea/
-.vscode/
-Hashtags.code-workspace
 
-# Python Related Files
-*.pyc
-*/__pycache__/
-
-# Environment Related Files
-venv/
+# ------- Git Related Files
+.git/

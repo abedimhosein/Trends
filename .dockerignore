@@ -1,18 +1,20 @@
-# Python related files and directories
-*.pyc
-*.pyo
-__pycache__
+# ------- Django Related Files
 
-# IDE related files and directories
-*.code-workspace
+# ------- Project Releted Files
+src/db/
+src/staticfiles/
+.venv/
 
-# Git and Docker related files and directories
+# ------- Python Related Files
+src/*.pyc
+src/*/__pycache__/
+
+# ------- IDE Related Files
+.idea/
+
+# ------- Git Related Files
 .git/
 .gitignore
-Dockerfile
-.dockerignore
 
-# Project related files and directories
-db/
-venv/
-static_deploy/
+# ------- Docker Related Files
+DockerUtility/
