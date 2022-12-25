@@ -146,12 +146,12 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (BASE_DIR / 'static_development',)  # for development
-STATIC_ROOT = BASE_DIR / 'static_deployment' / 'static_root'  # for deployment
+STATICFILES_DIRS = (BASE_DIR / 'static_dev',)  # for development
+STATIC_ROOT = BASE_DIR / 'static_prod' / 'static_root'  # for deployment
 
 # Media files (User uploaded files) for development and deployment
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'static_deployment' / 'media_root'
+MEDIA_ROOT = BASE_DIR / 'static_prod' / 'media_root'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

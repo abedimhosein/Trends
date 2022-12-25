@@ -4,7 +4,7 @@ src/*/migrations/*
 
 # ------- Project Releted Files
 src/db.sqlite3
-src/static_deployment/
+src/static_prod/
 .venv/
 
 # ------- Python Related Files
