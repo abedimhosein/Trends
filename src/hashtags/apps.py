@@ -1,4 +1,5 @@
 from django.apps import AppConfig
+from django.conf import settings
 
 
 class HashtagsConfig(AppConfig):
@@ -6,4 +7,5 @@ class HashtagsConfig(AppConfig):
     name = 'hashtags'
 
     def ready(self):
-        pass
+        if settings.USE_APPS_SIGNAL:
+            import hashtags.signals
