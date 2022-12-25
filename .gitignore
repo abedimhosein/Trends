@@ -3,8 +3,8 @@ src/*/migrations/*
 !src/*/migrations/__init__.py
 
 # ------- Project Releted Files
-src/db/db.sqlite3
-src/staticfiles/
+src/db.sqlite3
+src/static_deployment/
 .venv/
 
 # ------- Python Related Files
