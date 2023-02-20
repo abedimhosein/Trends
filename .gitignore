@@ -4,6 +4,7 @@
 
 # ------- Project Releted Files
 db.sqlite3
+static_prod/
 !static_prod/.dir
 venv/
 
