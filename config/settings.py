@@ -63,7 +63,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'Trends.urls'
+ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
@@ -83,29 +83,22 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'Trends.wsgi.application'
+WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-if DEBUG:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': ENV_CONFIGS.get('DB_NAME'),
+        'USER': ENV_CONFIGS.get('DB_USER'),
+        'PASSWORD': ENV_CONFIGS.get('DB_PASS'),
+        'HOST': ENV_CONFIGS.get('DB_HOST'),
+        'PORT': ENV_CONFIGS.get('DB_PORT'),
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': ENV_CONFIGS.get('DB_NAME'),
-            'USER': ENV_CONFIGS.get('DB_USER'),
-            'PASSWORD': ENV_CONFIGS.get('DB_PASS'),
-            'HOST': ENV_CONFIGS.get('DB_HOST'),
-            'PORT': ENV_CONFIGS.get('DB_PORT'),
-        }
-    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

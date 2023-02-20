@@ -1,15 +1,15 @@
 # ------- Django Related Files
-src/*/migrations/*
-!src/*/migrations/__init__.py
+*/migrations/*
+!*/migrations/__init__.py
 
 # ------- Project Releted Files
-src/db.sqlite3
-src/static_prod/
-.venv/
+db.sqlite3
+static_prod/
+venv/
 
 # ------- Python Related Files
-src/*.pyc
-src/*/__pycache__/
+*.pyc
+*/__pycache__/
 
 # ------- IDE Related Files
 .idea/

@@ -1,13 +1,13 @@
 # ------- Django Related Files
 
 # ------- Project Releted Files
-src/db/
-src/staticfiles/
-.venv/
+db.sqlite3
+static_prod/
+venv/
 
 # ------- Python Related Files
-src/*.pyc
-src/*/__pycache__/
+*.pyc
+*/__pycache__/
 
 # ------- IDE Related Files
 .idea/
@@ -17,4 +17,6 @@ src/*/__pycache__/
 .gitignore
 
 # ------- Docker Related Files
-DockerUtility/
+Dockerfile
+docker-compose.yml
+.dockerignore

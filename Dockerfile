@@ -1,5 +1,5 @@
 # pull official base image
-FROM python:3.9.15-alpine3.16
+FROM python:3.9.16-alpine3.17
 
 # set environment variables
 ENV PYTHONUNBUFFERED=1
@@ -11,10 +11,19 @@ EXPOSE 8001
 # set work directory
 WORKDIR /app
 
-# install dependencies
+# Adding mandatory packages to docker
+RUN apk update && apk add --no-cache \
+    postgresql \
+    zlib \
+    jpeg
+
+# Install dependencies
 RUN pip install --upgrade pip
-COPY ./requirements.txt .
+COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 # copy entire files of project
 COPY . .
+
+RUN python manage.py collectstatic --no-input
+RUN python manage.py makemigrations
