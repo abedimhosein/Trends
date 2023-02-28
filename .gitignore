@@ -1,12 +1,12 @@
 # ------- Django Related Files
-*/migrations/*
-!*/migrations/__init__.py
+*/*/migrations/*
+!*/*/migrations/__init__.py
 
 # ------- Project Releted Files
 db.sqlite3
 static_prod/
-!static_prod/.dir
 venv/
+.venv/
 
 # ------- Python Related Files
 *.pyc

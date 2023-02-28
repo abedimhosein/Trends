@@ -5,8 +5,8 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.decorators import action
 
-from hashtags import serializers
-from hashtags.models import Hashtag, Like, Dislike, Report
+from trends.hashtags import serializers
+from trends.hashtags.models import Hashtag, Like, Dislike, Report
 
 
 class HashtagModelViewSet(ModelViewSet):

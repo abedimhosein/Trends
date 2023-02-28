@@ -1,4 +1,4 @@
-from hashtags import views
+from trends.hashtags import views
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()

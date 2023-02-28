@@ -1,5 +1,5 @@
 from django.contrib import admin
-from hashtags.models import Hashtag, Like, Dislike
+from trends.hashtags.models import Hashtag, Like, Dislike
 
 
 class HashtagAdmin(admin.ModelAdmin):

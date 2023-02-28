@@ -13,6 +13,7 @@ WORKDIR /app
 
 # Adding mandatory packages to docker
 RUN apk update && apk add --no-cache \
+    build-base \
     postgresql \
     zlib \
     jpeg

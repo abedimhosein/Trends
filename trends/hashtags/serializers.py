@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
-from accounts.serializers import BasicUserSerializer
-from hashtags.models import Hashtag, Like, Dislike, Report
+from trends.accounts.serializers import BasicUserSerializer
+from trends.hashtags.models import Hashtag, Like, Dislike, Report
 
 
 class HashtagSerializer(serializers.ModelSerializer):

@@ -4,8 +4,8 @@ from django.conf import settings
 
 class HashtagsConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'hashtags'
+    name = 'trends.hashtags'
 
     def ready(self):
         if settings.USE_APPS_SIGNAL:
-            import hashtags.signals
+            import trends.hashtags.signals

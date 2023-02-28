@@ -1,9 +1,9 @@
 # ------- Django Related Files
 
 # ------- Project Releted Files
-db.sqlite3
 static_prod/
 venv/
+.venv/
 
 # ------- Python Related Files
 *.pyc

@@ -1,7 +1,7 @@
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
-from hashtags.models import Hashtag
-from utils.funcs import unique_slug_generator
+from trends.hashtags.models import Hashtag
+from trends.utils.funcs import unique_slug_generator
 
 
 @receiver(pre_save, sender=Hashtag)

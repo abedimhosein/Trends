@@ -18,7 +18,7 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # .env files and configs
-load_dotenv(dotenv_path=BASE_DIR / '.env.dev')
+load_dotenv(dotenv_path=BASE_DIR / 'dev.env')
 ENV_CONFIGS = os.environ
 
 # Quick-start development settings - unsuitable for production
@@ -37,6 +37,19 @@ MAINTENANCE_MODE = bool(int(ENV_CONFIGS.get('MAINTENANCE_MODE')))
 
 # Application definition
 
+LOCAL_APPS = [
+    # trends-project specific apps
+    'trends.accounts.apps.AccountsConfig',
+    'trends.hashtags.apps.HashtagsConfig',
+    'trends.common.apps.CommonConfig',
+]
+
+THIRD_PARTY_APPS = [
+    # added libs and framework
+    'rest_framework',
+    'drf_spectacular',
+]
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -44,13 +57,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    # added libs and framework
-    'rest_framework',
-
-    # trends-project specific apps
-    'accounts.apps.AccountsConfig',
-    'hashtags.apps.HashtagsConfig',
+    *THIRD_PARTY_APPS,
+    *LOCAL_APPS,
 ]
 
 MIDDLEWARE = [
@@ -68,9 +76,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            BASE_DIR / 'templates',
-        ],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -88,17 +94,26 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+USE_SQLITE = bool(int(ENV_CONFIGS.get('USE_SQLITE', False)))
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': ENV_CONFIGS.get('DB_NAME'),
-        'USER': ENV_CONFIGS.get('DB_USER'),
-        'PASSWORD': ENV_CONFIGS.get('DB_PASS'),
-        'HOST': ENV_CONFIGS.get('DB_HOST'),
-        'PORT': ENV_CONFIGS.get('DB_PORT'),
+if USE_SQLITE:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': ENV_CONFIGS.get('DB_NAME'),
+            'USER': ENV_CONFIGS.get('DB_USER'),
+            'PASSWORD': ENV_CONFIGS.get('DB_PASS'),
+            'HOST': ENV_CONFIGS.get('DB_HOST'),
+            'PORT': ENV_CONFIGS.get('DB_PORT'),
+        },
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -139,8 +154,7 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (BASE_DIR / 'static_dev',)  # for development
-STATIC_ROOT = BASE_DIR / 'static_prod' / 'static_root'  # for deployment
+STATIC_ROOT = BASE_DIR / 'static_prod' / 'static_root'
 
 # Media files (User uploaded files) for development and deployment
 MEDIA_URL = '/media/'
@@ -153,3 +167,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Default USER Model
 AUTH_USER_MODEL = 'accounts.User'
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Trends API',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
