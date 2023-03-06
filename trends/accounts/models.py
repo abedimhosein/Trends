@@ -42,6 +42,7 @@ class User(BaseDateTimeModel, AbstractBaseUser, PermissionsMixin):
     usertype = models.CharField(max_length=1, choices=Usertype.choices, default=Usertype.NORMAL)
     email = models.EmailField(unique=True)
     is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
@@ -49,11 +50,8 @@ class User(BaseDateTimeModel, AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     def __str__(self):
-        return f"{self.usertype} {self.email}"
+        return f"{self.usertype} -> {self.email}"
 
-    @property
-    def is_staff(self):
-        return self.is_superuser
 
 class Profile(models.Model):
     fullname = models.CharField(max_length=255, null=True, blank=True)

@@ -1,9 +1,7 @@
 # ------- Django Related Files
 
 # ------- Project Releted Files
-static_prod/
 venv/
-.venv/
 
 # ------- Python Related Files
 *.pyc

@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
+from datetime import timedelta
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -37,15 +38,15 @@ MAINTENANCE_MODE = bool(int(ENV_CONFIGS.get('MAINTENANCE_MODE')))
 
 # Application definition
 
+# trends-project specific apps
 LOCAL_APPS = [
-    # trends-project specific apps
     'trends.accounts.apps.AccountsConfig',
     'trends.hashtags.apps.HashtagsConfig',
     'trends.common.apps.CommonConfig',
 ]
 
+# added libs and framework
 THIRD_PARTY_APPS = [
-    # added libs and framework
     'rest_framework',
     'drf_spectacular',
 ]
@@ -94,26 +95,16 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-USE_SQLITE = bool(int(ENV_CONFIGS.get('USE_SQLITE', False)))
-
-if USE_SQLITE:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': ENV_CONFIGS.get('DB_NAME'),
-            'USER': ENV_CONFIGS.get('DB_USER'),
-            'PASSWORD': ENV_CONFIGS.get('DB_PASS'),
-            'HOST': ENV_CONFIGS.get('DB_HOST'),
-            'PORT': ENV_CONFIGS.get('DB_PORT'),
-        },
-    }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': ENV_CONFIGS.get('DB_NAME'),
+        'USER': ENV_CONFIGS.get('DB_USER'),
+        'PASSWORD': ENV_CONFIGS.get('DB_PASS'),
+        'HOST': ENV_CONFIGS.get('DB_HOST'),
+        'PORT': ENV_CONFIGS.get('DB_PORT'),
+    },
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -154,11 +145,11 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'static_prod' / 'static_root'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Media files (User uploaded files) for development and deployment
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'static_prod' / 'media_root'
+MEDIA_ROOT = BASE_DIR / 'mediafiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -170,10 +161,19 @@ AUTH_USER_MODEL = 'accounts.User'
 
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
 }
 
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Trends API',
+    'DESCRIPTION': 'Minimal Social Network only for hashtags',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }

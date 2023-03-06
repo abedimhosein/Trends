@@ -1,9 +1,12 @@
 from django.core.validators import MinLengthValidator
+from drf_spectacular.utils import extend_schema
 from rest_framework import serializers
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from drf_spectacular.utils import extend_schema
+from rest_framework_simplejwt.tokens import RefreshToken
+
 from trends.accounts.models import User, Profile
 from trends.accounts.services import register, update_profile
 from trends.accounts.validators import (
@@ -48,10 +51,14 @@ class RegisterApi(APIView):
             model = User
             fields = ('email', 'token')
 
-        token = serializers.SerializerMethodField(read_only=True)
+        token = serializers.SerializerMethodField(method_name="get_token")
 
-        def get_token(self, *args, **kwargs):
-            return "temporary-jwt-token"
+        def get_token(self, user: User):
+            refresh = RefreshToken.for_user(user)
+            return {
+                "refresh": str(refresh),
+                "access": str(refresh.access_token),
+            }
 
     @extend_schema(request=InputRegisterSerializer, responses=InputRegisterSerializer)
     def post(self, request):
@@ -74,6 +81,8 @@ class RegisterApi(APIView):
 
 
 class ProfileApi(APIView):
+    permission_classes = (IsAuthenticated,)
+
     class InputProfileSerializer(serializers.Serializer):
         fullname = serializers.CharField(max_length=255)
         about = serializers.CharField()

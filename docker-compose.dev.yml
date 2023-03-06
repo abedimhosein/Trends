@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:7.0.8-alpine3.17
+    container_name: trends-redis
+    volumes:
+      - redis_cache:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - trends-net
+
+  db:
+    image: postgres:15.2-alpine3.17
+    container_name: trends-db
+    volumes:
+      - postgres_db:/var/lib/postgres/data
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres-user
+      - POSTGRES_PASSWORD=postgres-password
+      - POSTGRES_DB=trends
+    networks:
+      - trends-net
+
+  backend:
+    build: . # use Dockerfile that exists on same directory as docker-compose.yml
+    container_name: trends-backend
+    image: trends-backend:1.0.0
+    command: python manage.py runserver 0.0.0.0:8001
+    volumes:
+      - .:/app
+    ports:
+      - "8001:8001"
+    environment:
+      - POSTGRES_NAME=hashtags
+      - POSTGRES_USER=postgres-user
+      - POSTGRES_PASSWORD=postgres-password
+      - POSTGRES_HOST=db
+      - POSTGRES_PORT=5432
+    depends_on:
+      - db
+    networks:
+      - trends-net
+
+  pgadmin:
+    image: dpage/pgadmin4:6.20
+    container_name: trends-pgadmin
+    depends_on:
+      - db
+    ports:
+      - "5050:80"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=example@example.com
+      - PGADMIN_DEFAULT_PASSWORD=admin-password
+    networks:
+      - trends-net
+
+volumes:
+  postgres_db:
+  redis_cache:
+
+networks:
+  trends-net:
+    driver: bridge
