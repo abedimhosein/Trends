@@ -1,9 +1,9 @@
-from rest_framework import status
 from django.shortcuts import get_object_or_404
+from rest_framework import status
+from rest_framework.decorators import action
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from rest_framework.decorators import action
 
 from trends.hashtags import serializers
 from trends.hashtags.models import Hashtag, Like, Dislike, Report
@@ -28,7 +28,7 @@ class HashtagModelViewSet(ModelViewSet):
         hashtag.state = Hashtag.HashtagState.PUBLISHED
         hashtag.save()
         return Response(status=status.HTTP_200_OK)
-    
+
     @action(methods=['post'], detail=True)
     def deactivate(self, request, pk=None):
         hashtag: Hashtag = get_object_or_404(Hashtag, pk=pk)

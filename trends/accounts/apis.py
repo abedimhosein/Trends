@@ -60,7 +60,7 @@ class RegisterApi(APIView):
                 "access": str(refresh.access_token),
             }
 
-    @extend_schema(request=InputRegisterSerializer, responses=InputRegisterSerializer)
+    @extend_schema(request=InputRegisterSerializer, responses=OutputRegisterSerializer)
     def post(self, request):
         serializer_obj = self.InputRegisterSerializer(data=request.data)
         serializer_obj.is_valid(raise_exception=True)
