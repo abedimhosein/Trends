@@ -22,11 +22,9 @@ services:
       - trends-net
 
   backend:
-    container_name: trends-backend
-    image: trends-backend:1.0.2
-    command: python manage.py runserver 0.0.0.0:8001
-    volumes:
-      - .:/app
+    build: . # use Dockerfile that exists on same directory as docker-compose.yml
+    image: trends-backend:1.0.4
+    command: python manage.py migrate && python manage.py runserver 0.0.0.0:8001
     ports:
       - "8001:8001"
     environment:

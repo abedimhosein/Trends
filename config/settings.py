@@ -19,7 +19,7 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # .env files and configs
-load_dotenv(dotenv_path=BASE_DIR / 'dev.env')
+load_dotenv(dotenv_path=BASE_DIR / '.env')
 ENV_CONFIGS = os.environ
 
 # Quick-start development settings - unsuitable for production

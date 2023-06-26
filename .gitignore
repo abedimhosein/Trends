@@ -1,6 +1,4 @@
 # ------- Django Related Files
-trends/*/migrations/*
-!trends/*/migrations/__init__.py
 
 # ------- Project Releted Files
 staticfiles/
